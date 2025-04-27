@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { UserAccount } from '../types';
-import { mockLiveChannels, mockCategories } from './mockData';
 
 export interface LiveChannel {
   id: string;
@@ -15,7 +14,7 @@ export interface LiveChannel {
 }
 
 // Flag to control whether to use mock data even when real data is available
-// Set this to true during development if you want to always see mock data
+// Set this to false as we no longer use mock data
 const FORCE_MOCK_DATA = false;
 
 /**
@@ -23,11 +22,6 @@ const FORCE_MOCK_DATA = false;
  */
 export const fetchLiveChannels = async (account: UserAccount): Promise<LiveChannel[]> => {
   try {
-    if (FORCE_MOCK_DATA) {
-      console.log('Using mock channel data (forced)');
-      return mockLiveChannels;
-    }
-    
     if (account.type === 'xtream') {
       return await fetchXtreamLiveChannels(account);
     } else if (account.type === 'm3u') {
@@ -37,8 +31,8 @@ export const fetchLiveChannels = async (account: UserAccount): Promise<LiveChann
     }
   } catch (error) {
     console.error('Error fetching live channels:', error);
-    console.log('Falling back to mock data');
-    return mockLiveChannels;
+    // Return empty array instead of mock data
+    return [];
   }
 };
 
@@ -173,11 +167,6 @@ const parseM3UContent = (content: string): LiveChannel[] => {
  */
 export const fetchChannelCategories = async (account: UserAccount): Promise<string[]> => {
   try {
-    if (FORCE_MOCK_DATA) {
-      console.log('Using mock category data (forced)');
-      return mockCategories;
-    }
-    
     const channels = await fetchLiveChannels(account);
     
     // Extract unique categories
@@ -191,8 +180,8 @@ export const fetchChannelCategories = async (account: UserAccount): Promise<stri
     return Array.from(categoriesSet).sort();
   } catch (error) {
     console.error('Error fetching channel categories:', error);
-    console.log('Falling back to mock category data');
-    return mockCategories;
+    // Return empty array instead of mock data
+    return [];
   }
 };
 

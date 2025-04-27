@@ -52,6 +52,38 @@ function RootLayoutNav() {
           gestureEnabled: true,
         }} 
       />
+      <Stack.Screen 
+        name="movies/moviesdetail" 
+        options={{ 
+          presentation: 'card',
+          animation: 'slide_from_right',
+          gestureEnabled: true,
+        }} 
+      />
+      <Stack.Screen 
+        name="movies/movieplayer" 
+        options={{ 
+          presentation: 'card',
+          animation: 'slide_from_right',
+          gestureEnabled: true,
+        }} 
+      />
+      <Stack.Screen 
+        name="series/seriesdetail" 
+        options={{ 
+          presentation: 'card',
+          animation: 'slide_from_right',
+          gestureEnabled: true,
+        }} 
+      />
+      <Stack.Screen 
+        name="series/seriesplayer" 
+        options={{ 
+          presentation: 'card',
+          animation: 'slide_from_right',
+          gestureEnabled: true,
+        }} 
+      />
     </Stack>
   );
 }
